@@ -1,0 +1,42 @@
+<div class="signupContainer">
+    <div class="contentBox">
+        <h4>Register Here</h4>
+        <div class="error_message"  *ngIf="failMessage">
+            <p class="textAlign">{{ failMessage }}</p>
+        </div>
+        <div class="success_message"  *ngIf="successMessage">
+            <p>Thank you for registering. Please verify your email to activate account</p>
+            <!-- <p>{{ successMessage }}</p> -->
+        </div>
+        <div *ngIf="isLoading" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit($event)" *ngIf="!isLoading">
+            <div class="input_field">
+                <input type="text" formControlName="firstName" placeholder="First Name" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.firstName">{{ formErrors.firstName }}</span>
+            </div>
+            <div class="input_field">
+                <input type="text" formControlName="lastName" placeholder="Last Name" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.lastName">{{ formErrors.lastName }}</span>
+            </div>
+            <div class="input_field">
+                <input type="text" formControlName="email" placeholder="Email" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.email">{{ formErrors.email }}</span>
+            </div>
+            <div class="input_field">
+                <input type="password" formControlName="password" placeholder="Password" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.password">{{ formErrors.password }}</span>
+            </div>
+            <div class="input_field">
+                <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.confirmPassword">{{ formErrors.confirmPassword }}</span>
+            </div>
+            <div class="button_group">
+                <button [disabled]="registrationForm.invalid || submitButtonStatus" type="submit" class="primaryBtn">Register</button>
+                <p>Already have an account? <a class="signupBtn" routerLink="/login">Login</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+

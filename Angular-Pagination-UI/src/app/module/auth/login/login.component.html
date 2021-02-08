@@ -1,0 +1,25 @@
+<div class="loginContainer">
+    <div class="contentBox">
+        <h4>Welcome to Angular</h4>
+        <div class="error_message"  *ngIf="failMessage">
+            <p>{{ failMessage }}</p>
+        </div>
+        <div *ngIf="isLoading" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" *ngIf="!isLoading">
+            <div class="input_field">
+                <input type="text" formControlName="email" placeholder="Email" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.email">{{ formErrors.email }}</span>
+            </div>
+            <div class="input_field">
+                <input type="password" formControlName="password" placeholder="Password" (blur)="logValidationErrors()">
+                <span class="errorMessageStyle" *ngIf="formErrors.password">{{ formErrors.password }}</span>
+            </div>
+            <div class="button_group">
+                <button [disabled]="loginForm.invalid || submitButtonStatus" type="submit" class="primaryBtn">Login</button>
+                <p>Create an Account? <a class="signupBtn" routerLink="/signup">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</div>

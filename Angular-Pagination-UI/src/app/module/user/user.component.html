@@ -1,0 +1,61 @@
+<div class="userContainer">
+    <div class="header">
+        <h3>Random User Shows using pagination</h3>
+        <button class="pageBtn" (click)="onLogout()">Logout</button>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input_field">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search by name" [(ngModel)]="searchByName">
+                </div>
+                <!-- table started -->
+                <div class="table_container">
+                    <table>
+                        <tr>
+                            <th (click)="onClickColumn('name')">Name <i class="fa fa-sort"></i></th>
+                            <th (click)="onClickColumn('gender')">Gender <i class="fa fa-sort"></i></th>
+                            <th (click)="onClickColumn('email')">Email <i class="fa fa-sort"></i></th>
+                            <th (click)="onClickColumn('phone')">Mobile Number <i class="fa fa-sort"></i></th>
+                            <th>Picture</th>
+                        </tr>
+                        <tr *ngIf="isLoading">
+                            <td colspan="6" class="text-center">
+                                <app-loading-spinner></app-loading-spinner>
+                            </td>
+                        </tr>
+                        <ng-container *ngIf="noData == false; else noDataContainer">
+                            <tr
+                                *ngFor="let user of userData | sortPipe : seletedColumn | userSearchPipe: searchByName; trackBy:trackById">
+                                <td>{{ user.name}}</td>
+                                <td>{{ user.gender}}</td>
+                                <td>{{ user.email}}</td>
+                                <td>{{ user.phone}}</td>
+                                <td class="text-center"><img [src]="user.picture" [alt]="user.name"></td>
+                            </tr>
+                        </ng-container>
+                        <ng-template #noDataContainer>
+                            <tr>
+                                <td colspan="6">
+                                    <p class="text-center">No users available!</p>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </table>
+                </div>
+                <!-- Pagination is started -->
+                <div class="paginationContainer">
+                    <nav aria-label="page navigation">
+                        <ul class="pagination">
+                            <li class="pageBtn" *ngIf="getActivePage() !== 1" (click)="onClickPage(getActivePage() - 1)">« Previous</li>
+                            <li class="pageBtn otherBtn" [ngClass]="{'activeBtn': getActivePage() === page}"
+                                *ngFor="let page of showPageNumberList" (click)="onClickPage(page)">{{page}}</li>
+                            <li class="pageBtn" *ngIf="getActivePage() !== totalPages" (click)="onClickPage(getActivePage() + 1)">Next »</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

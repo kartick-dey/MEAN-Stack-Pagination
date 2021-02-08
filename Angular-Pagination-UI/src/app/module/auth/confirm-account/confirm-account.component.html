@@ -1,0 +1,18 @@
+<div class="confirmAccountContainer">
+    <div class="contentBox">
+        <h4>Email Confirmation Page</h4>
+        <div class="error_message" *ngIf="failMessage">
+            <p>{{ failMessage }}</p>
+        </div>
+        <div *ngIf="isLoading" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <div class="alert alert-primary" *ngIf="emailConfirmed">
+            <p>Email Confirmed. Please login</p>
+            <a class="signupBtn" routerLink="/login">Go to Login page</a>
+        </div>
+        <div class="alert alert-primary" *ngIf="!emailConfirmed">
+            Unable to confirm Email
+        </div>
+    </div>
+</div>
